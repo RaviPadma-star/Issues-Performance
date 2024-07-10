@@ -1,0 +1,5 @@
+duplicate index are ntg but overhead on the database system , dtabase syatem has to maintain two sets of indexes when it has to update
+delete, insert, on the table which has duplicate indexes, there is a possibility that indexes are overlapped
+ex:
+index1 have col1, col2,col3 but index2 have col1, col2, col3 , col4, col5
+here index1 and index2 are overlapping and there is no need of index1 which shoul be remove?
