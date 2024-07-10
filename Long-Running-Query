@@ -1,0 +1,3 @@
+when evert long running query are there we need to look on performnace area
+which query is consuming more and more, for couple of hours, what are thing we need to figure out
+in terms i/o , query tunning, 
