@@ -1,0 +1,50 @@
+Before tunning it is very imp that, setting are imp
+ex: for ex one sp is taking more time to may be it take more or maynot be for tunnig, there are some setting, os level, servel level and db level, with out tunning also we can improve the performance alot
+along with setting, jobs , and maintaince also imp
+before tunning its req to see the settings, from the os level, server level and database level, next you need to see the jobs
+wheather we doing riht maintance are not, weather doing the rebuild indexing  or update statices or not, integrety check are imp
+
+first setting are imp then, jobs are important --> if you any errors, these are contunously loging, it consuming the cpu, doing some anyalysis, doing some steps to prevent the
+error log, or any user contiounsly login, but he can;t able to login due to the mismatch of password, need to fix issue drop the user, or fix the password
+and missing indexes, unused indexes, duplicate indexes, after fixing this kind of issues we can imporve the performce tunning, in case still the performance is degrading --> 
+
+in case sysytem getting a presure woth some of cpu, i/o, memory issues with the help of dmv's along with this
+
+one query is taking very long time, how to monitor this sp, where the problem is, one secenerio yesterday one query is run in 10 mins, today its taken 1 hour to run , where the problem and all, 
+
+lets say manager is asking to check the performance of server --> its take time we cant not apply all thing at a time
+--> first we need to check with settings of server 
+
+setting: instanst file instalization is basic setting to be enable to improve the i/o performance for older version , but in lastest vesrion while instllaling itself it give the Grant performave mantaince option
+for older version go to computer configuration setting, user rights polcaiy check for perform volume maintance task double click and user account
+
+server level setting:  backup compression settings
+                        max-degree of parallelism-- if you have more than 8 processors in the system, make this 8 else case try to keep as it is
+                        max server memory -> you must give 20% memory to os, remaining 80% will give sql server 
+                        optimize-for ad hoc workloads -- if you are running more adhocs queries, make this 1 or else its fine
+                        cost-thershold for parralelism - if the cost is above 5 it go to max degree of parralism with sub thread it increase the cpu usage, we canovercome with this seeting help of cost threshold for
+                        parallesim --> for wecan also use maxdop for delete the table like hits if use maxdop=1 then it take only the 1 cpu to perform operations, then queriues will run on other cpus
+
+sp_configure 'max server memory (MB)', 4800 
+reconfigure
+
+DB LEVEL SETTING: 
+1. Need to check the latest compatability level- if its in previous it wont use the latest alogritums
+
+Maintance jobs: 
+1. First of all we need to do database integrity job after that you can do the index, maintance, re-organize the index.
+when the fragmentation is very high we use the index-rebuild, in that case  
+
+which is best - re-build or re-orginze the index --> there is no comparision, when the fragmaention is high we use re-build index, if fragmentaion is low we use re-organize the index
+
+most of the time all maintance are jobs running every weeek eventhough getting the statistices issue, how to resolve --> DBCC SHOW_STATISTICS ("[dbo].[user]", [ClusteredIndex-20240704-184429])
+after exectuing we can see row, and row sampled this count should be same otherwise the update staticits are not working properly
+if both the things are not same run this cms -> EXEC sp_MSForEachTable 'UPDATE STATISTICS ? WITH FULLSCAN'
+more indexes are there means it degrade the performance, max 5 we can use, keeping more indexes means dml query will run very slowly...
+
+Findings:
+1. Missing Indexes:  if you run a query if query is bad, sql server this query having index this table obusoluy this query is good, sql hving its own thing intllengent service, sql will maintaine
+missing index, if not index which is already existing, the index which we can create query will become faster so that we called as missing index. 
+
+2. unused index after using the scriot we find unsed index just drop the indexes
+3. duplicate indexs
