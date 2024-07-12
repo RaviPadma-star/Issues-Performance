@@ -65,3 +65,19 @@ we can found:
 2. clustered scan  -- you do not have indexes on filter column atleast it depend on clustered index --by adding correct index we can avoid this scan
 3. key lookup: - key means primary key, primary key is ntg but clustered index, this index but not fully clustered index or in sufficent index, if keylookup is there means we can also improve the performnce
     via avoiding keylookups how either create a new fresh index all the columns and existing indexes
+
+sample how to identify
+select AddressId, AddressLIne1, CIty, PostalCode
+from [person].[Address]
+where city =  'BIthewell'
+
+Table name: [Addersss]
+Filter Columns - (where, join) : City
+select columns : AddressId, AddressLIne, PostalCode
+
+create nonclustered index ix_nonderucder on tablename(filtercolumns) include (select columns)
+
+ex: create nonclustered index ix_nonderucder on  [person].[Address](city) include (AddressId, AddressLIne, PostalCode)
+
+how to see execution plan, when customer saying query takes time, or results not showing at all
+--> sp_whoisactive @get_plans=1, sp_whoisactive @help=1
