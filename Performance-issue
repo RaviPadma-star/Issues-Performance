@@ -48,3 +48,20 @@ missing index, if not index which is already existing, the index which we can cr
 
 2. unused index after using the scriot we find unsed index just drop the indexes
 3. duplicate indexs
+
+Before tunning above steps are imp:
+
+1. lets say customer given a query saying this query is running slow, then take the query and before execute the query check the
+estimatted plan, and actual plan. after check estsmeted plan it give some suggestions if any missing indexes are there. if missing index is there for table, after executing
+its clustered index scan, impoertant: suppose we have table the table doesnt have any indexes, eben with clustered indexex dont have , acutally 2 types of indexes, clustered indexes, non-clustered indexes
+so a table doesnt have any indexes , what type of scan will happen table scan will happen. once missing index as added into table, again checking the same query after created index on table now
+execution plan is taking as index scan...
+and now we can check the query with tunning adivisor
+if you have very big stored procdure are cant do mannually for this we have tunning advisor --Database tunning adivisor search for it.
+
+in execution plan:
+we can found:
+1. table scan/ row lookup -- this will happen if yoy dont have any index at all 
+2. clustered scan  -- you do not have indexes on filter column atleast it depend on clustered index --by adding correct index we can avoid this scan
+3. key lookup: - key means primary key, primary key is ntg but clustered index, this index but not fully clustered index or in sufficent index, if keylookup is there means we can also improve the performnce
+    via avoiding keylookups how either create a new fresh index all the columns and existing indexes
