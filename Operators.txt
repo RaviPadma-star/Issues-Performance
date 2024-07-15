@@ -1,0 +1,5 @@
+set operators
+
+Union
+Intersect
+Minus/Except

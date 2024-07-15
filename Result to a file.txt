@@ -1,0 +1,3 @@
+sqlcmd -i mysrcipt.sql -o result.txt 
+
+type result.txt

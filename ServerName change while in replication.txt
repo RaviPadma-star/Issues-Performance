@@ -1,0 +1,32 @@
+use master
+select 
+srl.remote_name as RemoteLoginName, 
+sss.srvname
+from sys.remote_logins srl join sys.sysservers sss on srl.server_id = sss.srvid
+
+
+Execute below to drop the current server name
+
+EXEC master.dbo.sp_serveroption @server=N'AZU0SAxDB02D', @optname=N'dist', @optvalue=N'true'
+GO
+
+EXEC sp_dropdistributor @no_checks = 1, @ignore_distributor = 1
+GO
+
+EXEC sp_DROPSERVER 'AZU0SAxDB02D'
+
+EXEC sp_ADDSERVER 'AZU0SAxDB02D','local'
+--Restart SQL Services.
+
+SELECT @@SERVERNAME
+
+drop database [distribution]
+
+USE [master]
+GO
+
+/****** Object:  LinkedServer [repl_distributor]    Script Date: 10/17/2016 5:49:05 AM ******/
+EXEC master.dbo.sp_dropserver @server=N'repl_distributor', @droplogins='droplogins'
+GO
+
+

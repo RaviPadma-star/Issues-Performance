@@ -1,0 +1,9 @@
+Free tools Tried
+
+https://www.mssqltips.com/sqlservertip/1067/sql-server-performance-monitoring-tools/
+
+1)ManageEngineSQLHealthMonitor
+
+It's only tells about few performance counters.
+
+2)http://www.solarwinds.com/database-performance-monitoring-software

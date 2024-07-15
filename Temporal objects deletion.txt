@@ -1,0 +1,24 @@
+
+use tempdb
+go
+select * from sys.objects
+where name like 'PK_#MaxSaleLineItems_SalesLineId'
+
+select object_name(-1261975010)
+select object_name(-1277975067)
+
+delete by keeping [
+
+ALTER TABLE [#MaxSaleLineItems___________________________________________________________________________________________________000000008F07]
+DROP CONSTRAINT PK_#MaxSaleLineItems_SalesLineId
+GO
+
+ALTER TABLE #MaxSaleLineItems
+DROP CONSTRAINT PK_#MaxSaleLineItems_SalesLineId on 
+
+select * from sys.objects
+where name like '#MaxSaleLineItems%'
+
+IF OBJECT_ID('tempdb..#MaxSaleLineItems') IS NOT NULL DROP TABLE #MaxSaleLineItems
+sp_whoisactive
+drop table [#MaxSaleLineItems___________________________________________________________________________________________________000000008F07]

@@ -1,0 +1,21 @@
+SELECT CAST(100.0 * SUM(signal_wait_time_ms) / SUM(wait_time_ms) AS NUMERIC(20,2)) AS [%signal (cpu) waits] , CAST(100.0 * SUM(wait_time_ms - signal_wait_time_ms) / SUM(wait_time_ms) AS NUMERIC(20, 2)) AS [%resource waits]FROM sys.dm_os_wait_stats ;
+
+SELECT [counter_name], [cntr_value]
+FROM sys.dm_os_performance_counters
+WHERE
+	[object_name] LIKE '%Memory Manager%'
+AND [counter_name] IN ('Total Server Memory (KB)', 'Target Server Memory (KB)')
+
+
+memery for OS - 4 GB or 10%
+
+page life expectancy- 300 sec
+
+avialble Mbytes- 2~ 4 GB
+
+
+SELECT object_name, counter_name, cntr_value FROM sys.dm_os_performance_counters 
+where (object_name like '%Buffer Manager%' and counter_name like '%page life%')
+or (object_name like '%Memory Manager%' and counter_name like '%memory grants pending%')
+or (object_name like '%Memory Manager%' and counter_name like '%target server memory%')
+or (object_name like '%Memory Manager%' and counter_name like '%total server memory%');

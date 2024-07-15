@@ -1,0 +1,7 @@
+WITH CTE AS
+(
+    SELECT *, ROW_NUMBER() OVER(PARTITION BY EmpId, EmpName, Age, City ORDER BY (SELECT NULL)) Seq
+    FROM dbo.tbl_Sample
+)
+DELETE FROM CTE WHERE Seq > 1
+

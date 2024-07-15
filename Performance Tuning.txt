@@ -1,0 +1,12 @@
+Here are the following topics related to performance tuning that will be on my resume:
+-DMV 
+-Store Procedures
+-DBCC
+-Profiler
+-Execution Plan
+-Database Engine Tuning Advisor
+-Activity Monitor
+-PerfMon
+-EventViewer
+-Task Manager
+-Resource Manager

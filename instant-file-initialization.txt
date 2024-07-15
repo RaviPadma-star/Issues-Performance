@@ -1,0 +1,2 @@
+https://www.brentozar.com/blitz/instant-file-initialization/
+https://www.mssqltips.com/sqlservertip/2752/effect-of-instant-file-initialization-within-sql-server/
