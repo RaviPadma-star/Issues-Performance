@@ -81,3 +81,10 @@ ex: create nonclustered index ix_nonderucder on  [person].[Address](city) includ
 
 how to see execution plan, when customer saying query takes time, or results not showing at all
 --> sp_whoisactive @get_plans=1, sp_whoisactive @help=1
+
+How to setup -- > optimize ad-hoc-worloads using the sp_configure 'optimize for ad hoc workloads', 1 --> reconfigre
+
+sql server profile -> when we devolper are running any query usallly they will not find any error msg or, it will go and off
+in this case also we can use sql profiler, then use this a templete beacuse ths profiler consumes more cpu and all, in templeate select, tunning, or tsql_sps and in 
+event selections select the -> error log and expection event so we can track it  and also we can save the templete and we can run saved file in dabase tunning adiisor, so
+it can give some suggestions
