@@ -1,0 +1,22 @@
+To track dead locks we need to enable the dbcc trace commands on on-premise, MI, IAAS model
+
+but in Azure -sql-db they are automaticcaly enable some trace logs..
+
+how to check deadlock, information in the azure sql db?
+
+SELECT * FROM sys.event_log   
+WHERE event_type = 'deadlock';
+
+Once you found the Deadlocks, you can further dig and find in-detail information on each deadlock using below query.
+Need to run below query in Master DB only.
+WITH CTE AS (  
+SELECT CAST(event_data AS XML)  AS [target_data_XML]   
+FROM sys.fn_xe_telemetry_blob_target_read_file('dl', null, null, null)  
+)  
+SELECT target_data_XML.value('(/event/@timestamp)[1]', 'DateTime2') AS Timestamp,  
+target_data_XML.query('/event/data[@name=''xml_report'']/value/deadlock') AS deadlock_xml,  
+target_data_XML.query('/event/data[@name=''database_name'']/value').value('(/value)[1]', 'nvarchar(100)') AS db_name  
+ FROM CTE
+--where target_data_XML.value('(/event/@timestamp)[1]', 'DateTime2')>='2020-03-01'
+--and target_data_XML.query('/event/data[@name=''xml_report'']/value/deadlock') like '%Employee%'
+order by Timestamp desc
